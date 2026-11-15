@@ -6,13 +6,14 @@
 <title>Planificateur de retraite (Canada)</title>
 <style>
 :root{
-  --bg:#F3F6FC; --surface:#FFFFFF; --surface2:#F7F9FD; --ink:#26324A; --ink2:#62708A; --line:#E4EAF4; --line2:#CCD6E6;
-  --accent:#3E6BF4; --accent2:#7A5CF6; --accent-ink:#FFFFFF; --accent-soft:#EAF0FF;
-  --warn:#9A5A00; --warn-bg:#FFF4DA; --warn-line:#F2D58C; --ok:#0F766E; --ok-bg:#DDF6F0; --ok-line:#9FE3D6;
-  --c-sal:#38BDF8; --c-rente:#4C7DFF; --c-rrq:#F5B83D; --c-psv:#FBD98A; --c-reer:#9DB4FF; --c-plac:#7EDDB4;
-  --c-p1:#4C7DFF; --c-p2:#A78BFA; --c-celi:#2BC4B0; --c-nr:#CBD5E1; --c-obj:#26324A;
-  --shadow:0 1px 2px rgba(38,50,74,.05),0 12px 32px rgba(38,50,74,.07);
-  --r:18px; --r2:12px;
+  --bg:#F5F3EE; --surface:#FFFFFF; --surface2:#FAF8F3; --ink:#1E2B2F; --ink2:#566468; --line:#E6E1D6; --line2:#CFC8B8;
+  --shell:#12343B; --shell2:#1B4A53; --shell-ink:#EAF3F1; --shell-mute:#9FC0BF;
+  --accent:#176A8C; --accent-ink:#FFFFFF; --accent-soft:#E3F0F5; --accent-line:#9CC5D6;
+  --warn:#8A5300; --warn-bg:#FFF3D6; --warn-line:#EBCB84; --ok:#17703F; --ok-bg:#E2F4E9; --ok-line:#A3D8B7;
+  --c-sal:#4FA3C7; --c-rente:#176A8C; --c-rrq:#E3A63A; --c-psv:#F1CD85; --c-reer:#8DB9CF; --c-plac:#6CC3A0;
+  --c-p1:#176A8C; --c-p2:#8E7CC3; --c-celi:#2E9E8A; --c-nr:#C9C2B2; --c-obj:#1E2B2F;
+  --shadow:0 1px 2px rgba(30,43,47,.06),0 6px 18px rgba(30,43,47,.06);
+  --r:14px; --r2:10px;
   --f-head:system-ui,-apple-system,'Segoe UI Variable Display','Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
   --f-body:system-ui,-apple-system,'Segoe UI Variable Text','Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
   box-sizing:border-box;
@@ -21,8 +22,8 @@
   color-scheme:light;
 }
 *,*::before,*::after{box-sizing:border-box}
-html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;min-height:100%;background:linear-gradient(180deg,#E3ECFF 0,#F3F6FC 340px) no-repeat,var(--bg);color:var(--ink);font:400 15px/1.55 var(--f-body);font-variant-numeric:tabular-nums;-webkit-text-size-adjust:100%}
+html{height:100%;scroll-padding-top:132px;scroll-behavior:smooth}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:400 15px/1.55 var(--f-body);font-variant-numeric:tabular-nums;-webkit-text-size-adjust:100%}
 h1,h2,h3{font-family:var(--f-head);font-weight:700;letter-spacing:-.015em;margin:0;line-height:1.18;color:var(--ink)}
 h1{font-size:clamp(1.9rem,3.6vw,2.8rem)}
 h2{font-size:1.3rem}
@@ -64,8 +65,8 @@ input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-m
 .fld .hint{font-size:.78rem;color:var(--ink2)}
 .btn{border:1px solid var(--line2);background:#fff;padding:9px 16px;border-radius:999px;cursor:pointer;min-height:40px;font-weight:600;transition:background .15s,border-color .15s,box-shadow .15s}
 .btn:hover{border-color:var(--accent);background:var(--accent-soft)}
-.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:transparent;box-shadow:0 6px 16px rgba(62,107,244,.28)}
-.btn.primary:hover{filter:brightness(1.06);background:linear-gradient(135deg,var(--accent),var(--accent2))}
+.btn.primary{background:var(--accent);color:#fff;border-color:transparent;box-shadow:0 1px 2px rgba(23,106,140,.35)}
+.btn.primary:hover{background:#125874}
 .btn.link{border:0;background:none;color:var(--accent);padding:9px 6px;text-decoration:underline;font-weight:500}
 .btn.lang{min-width:92px}
 .aside-foot{padding:14px 18px 16px;border-top:1px solid var(--line);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
@@ -73,7 +74,7 @@ input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-m
 main{display:grid;grid-template-columns:minmax(0,1fr);gap:22px;min-width:0}
 section.panel{padding:24px}
 section.panel>h2{margin-bottom:6px;display:flex;gap:12px;align-items:center}
-.n{display:inline-grid;place-items:center;width:1.9rem;height:1.9rem;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font:700 .92rem var(--f-head);box-shadow:0 4px 10px rgba(62,107,244,.3)}
+.n{display:inline-grid;place-items:center;width:1.7rem;height:1.7rem;border-radius:8px;background:var(--accent-soft);color:var(--accent);font:700 .9rem var(--f-head)}
 .sub{color:var(--ink2);font-size:.92rem;margin-bottom:16px;max-width:80ch}
 fieldset{border:0;margin:0;padding:0;min-width:0}
 legend{font-weight:600;padding:0;margin-bottom:10px}
@@ -156,23 +157,152 @@ select.inl{max-width:420px}
 @media (max-width:760px){.ribbon,.chart{overflow-x:auto}.ribbon svg{min-width:900px}.chart svg{min-width:760px}.readout{position:static;margin-top:8px;box-shadow:none}section.panel{padding:18px}.wrap{padding:12px 12px 48px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 @media print{aside.panel{display:none}.layout{display:block}}
+/* ====== v6 : coque d'application, étapes, formulaires, icônes ====== */
+.skip{position:absolute;left:-9999px;top:8px;background:#fff;color:var(--ink);padding:8px 14px;border-radius:8px;z-index:100;font-weight:600}
+.skip:focus{left:8px}
+.bar{position:sticky;top:0;z-index:50;background:var(--shell);color:var(--shell-ink);box-shadow:0 1px 0 rgba(0,0,0,.2),0 6px 16px rgba(18,52,59,.18)}
+.bar-in{max-width:1440px;margin:0 auto;padding:8px 18px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.brand{margin:0;display:flex;align-items:center;gap:10px;font:700 1.05rem var(--f-head);color:#fff;letter-spacing:-.01em;white-space:nowrap}
+.brand svg{width:28px;height:28px;flex:none}
+.steps{display:flex;gap:4px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none;padding:2px}
+.steps::-webkit-scrollbar{display:none}
+.steps a{display:flex;align-items:center;gap:8px;padding:8px 14px;min-height:44px;border-radius:999px;color:var(--shell-mute);text-decoration:none;font-weight:600;font-size:.92rem;white-space:nowrap;transition:background .15s,color .15s}
+.steps a:hover{background:var(--shell2);color:#fff}
+.steps a .dot{width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;display:inline-grid;place-items:center;font-size:.74rem;font-weight:700;flex:none}
+.steps a.done{color:#CFE9E2}
+.steps a.done .dot{background:#5CC59B;border-color:#5CC59B;color:#0B2B30;font-size:0}
+.steps a.done .dot::after{content:"";width:11px;height:11px;background:#0B2B30;-webkit-mask:var(--i-check) center/contain no-repeat;mask:var(--i-check) center/contain no-repeat}
+.steps a.cur{background:#fff;color:var(--shell)}
+.steps a.cur .dot{border-color:var(--accent);color:var(--accent)}
+.bar .btn.lang{background:transparent;color:var(--shell-ink);border-color:#3B6A72;min-width:0;display:inline-flex;gap:8px;align-items:center}
+.bar .btn.lang:hover{background:var(--shell2);border-color:#5E8F96}
+.bar .btn.lang::before,.btn.dl::before{content:"";width:18px;height:18px;background:currentColor;flex:none;-webkit-mask:var(--i-globe) center/contain no-repeat;mask:var(--i-globe) center/contain no-repeat}
+.btn.dl{display:inline-flex;gap:8px;align-items:center}
+.btn.dl::before{-webkit-mask-image:var(--i-down);mask-image:var(--i-down)}
+:root{
+  --i-check:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12.5l5 5L20 6.5'/%3E%3C/svg%3E");
+  --i-globe:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18'/%3E%3C/svg%3E");
+  --i-down:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 4v11M7 11l5 5 5-5M5 20h14'/%3E%3C/svg%3E");
+  --i-warn:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3.5l9.5 16.5h-19z'/%3E%3Cpath d='M12 10v4.5M12 17.5v.1'/%3E%3C/svg%3E");
+  --i-info:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 11v6M12 7.5v.1'/%3E%3C/svg%3E");
+  --i-list:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M9 6h11M9 12h11M9 18h11M4 6h.1M4 12h.1M4 18h.1'/%3E%3C/svg%3E");
+}
+.wrap{padding-top:14px}
+.top{padding:6px 0 22px}
+.top .lead{color:var(--ink);max-width:70ch;font-size:1.12rem;line-height:1.55;margin:0}
+.notice{display:flex;gap:10px;align-items:flex-start;border-radius:var(--r2);background:var(--warn-bg);border:1px solid var(--warn-line);padding:10px 14px;margin:0 0 16px;font-size:.9rem;max-width:78ch}
+.notice::before{content:"";width:18px;height:18px;margin-top:2px;background:var(--warn);flex:none;-webkit-mask:var(--i-info) center/contain no-repeat;mask:var(--i-info) center/contain no-repeat}
+.top .dataline{color:var(--ink2);font-size:.86rem;margin-top:10px}
+.jump{display:none}
+/* mise en page : formulaire d'abord, hypothèses à droite */
+@media (min-width:1080px){
+  .layout{grid-template-columns:minmax(0,1fr) 340px}
+  .layout>main{grid-column:1;grid-row:1}
+  .layout>aside.panel{grid-column:2;grid-row:1;top:84px;max-height:calc(100vh - 100px)}
+}
+.panel{box-shadow:var(--shadow)}
+section.panel{padding:26px}
+section.panel>h2{font-size:1.3rem;margin-bottom:4px}
+.sub{font-size:.95rem}
+.aside-head h2{font-size:1.1rem}
+details.grp>summary{min-height:48px}
+details.grp>summary::after{content:"";width:18px;height:18px;background:var(--accent);-webkit-mask:var(--i-down) center/contain no-repeat;mask:var(--i-down) center/contain no-repeat;transition:transform .2s}
+details.grp[open]>summary::after{content:"";transform:rotate(180deg)}
+/* formulaires */
+input[type=text],input[type=number],input[type=date],select{font-size:16px;min-height:46px;border-radius:var(--r2);border-color:var(--line2);background:#fff}
+input:hover,select:hover{border-color:#A39B87}
+input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent)}
+input::placeholder{color:#7D878A}
+.fld label,.sel label{color:var(--ink);font-size:.88rem;font-weight:600}
+.fld .hint{color:var(--ink2);font-size:.82rem}
+.fld .unit{color:var(--ink2);font-size:.9rem;font-weight:500}
+.btn{min-height:46px;padding:10px 20px;border-radius:var(--r2);font-weight:600;border-color:var(--line2)}
+.btn:hover{background:var(--accent-soft);border-color:var(--accent-line)}
+.btn.primary{border-radius:var(--r2)}
+.btn.link{color:var(--accent);padding:10px 8px}
+.opt{border-radius:12px;background:#fff;border-color:var(--line2);min-height:64px}
+.opt:hover{border-color:var(--accent-line);background:var(--surface2)}
+.opt:has(input:checked){border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 1px var(--accent) inset}
+.opt input{accent-color:var(--accent);width:18px;height:18px;top:17px}
+.opt span{color:var(--ink2)}
+.pcard,.scb{background:var(--surface2);border-color:var(--line)}
+.persons .pcard h3,.scb h3{font-size:1.05rem}
+.check input{width:20px;height:20px}
+/* résultats */
+.verdict{position:relative;padding:18px 20px 18px 62px;border-radius:12px;font-size:1.02rem;line-height:1.55}
+.verdict::before{content:"";position:absolute;left:20px;top:20px;width:26px;height:26px;background:currentColor;-webkit-mask:var(--i-check) center/contain no-repeat;mask:var(--i-check) center/contain no-repeat}
+.verdict.warn::before{-webkit-mask-image:var(--i-warn);mask-image:var(--i-warn)}
+.verdict.todo::before{-webkit-mask-image:var(--i-list);mask-image:var(--i-list);color:var(--accent)}
+.verdict.todo{background:#fff;border:1.5px dashed var(--accent-line);box-shadow:none}
+.verdict.ok{background:var(--ok-bg);color:#0F5A32;border-color:var(--ok-line)}
+.seltabs button[aria-pressed="true"]{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+.seltabs button{min-height:44px}
+.tag.ok{background:var(--ok-bg);color:var(--ok)}
+th{background:#F0ECE2}
+th:first-child{background:#F0ECE2}
+tbody tr:hover td{background:#FBF9F4}
+tr.p1 td,tr.p1 td:first-child{background:#EEF5F8}
+.tw{border-radius:12px;border-color:var(--line)}
+.ledger .lg b{font-variant-numeric:tabular-nums}
+.readout{border-radius:10px}
+.warn-sec{background:#FFFCF3}
+.foot{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);color:var(--ink2)}
+.foot a{color:var(--accent)}
+a{color:var(--accent)}
+::selection{background:#BFE0EC;color:var(--ink)}
+@media (max-width:760px){
+  .bar-in{gap:6px 12px;padding:8px 12px}
+  .steps{order:3;flex:1 1 100%}
+  .steps a{padding:8px 12px;font-size:.88rem}
+  section.panel{padding:18px}
+  .top .lead{font-size:1.02rem}
+  html{scroll-padding-top:116px}
+}
+
+.two{align-items:end}
+.nrbox{border:1px solid var(--line);border-radius:12px;background:#fff}
+.nrbox>summary{cursor:pointer;list-style:none;padding:12px 14px;font-weight:600;min-height:46px;display:flex;justify-content:space-between;align-items:center}
+.nrbox>summary::-webkit-details-marker{display:none}
+.nrbox>summary::after{content:"";width:18px;height:18px;background:var(--accent);-webkit-mask:var(--i-chev) center/contain no-repeat;mask:var(--i-chev) center/contain no-repeat;transition:transform .2s}
+.nrbox[open]>summary::after{transform:rotate(180deg)}
+.nrin{padding:2px 14px 14px;display:grid;gap:12px}
+:root{--i-chev:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 9l7 7 7-7'/%3E%3C/svg%3E")}
+details.grp>summary::after,details.grp[open]>summary::after{-webkit-mask-image:var(--i-chev);mask-image:var(--i-chev)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{.bar{display:none}}
+
+.two>*{min-width:0}
+input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:none}
+@media (max-width:480px){.two:has(input[type=date]){grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="notice" role="note">
-    <span data-i18n="notice"></span> <a href="#avertissements" data-i18n="noticeLink"></a>
+<a class="skip" href="#s1" data-i18n="skip"></a>
+<header class="bar">
+  <div class="bar-in">
+    <h1 class="brand">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#5CC59B"/><path d="M6 22.5c4.2-.2 6-3.6 8-7.4 1.6-3 3.4-5.6 7-5.6h5" fill="none" stroke="#0B2B30" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24.5" cy="9.5" r="2.4" fill="#0B2B30"/><path d="M6 26h20" stroke="#0B2B30" stroke-width="2.2" stroke-linecap="round" opacity=".45"/></svg>
+      <span data-i18n="title"></span>
+    </h1>
+    <nav class="steps" id="steps" aria-label="Étapes">
+      <a href="#s1" data-step="1"><span class="dot">1</span><span data-i18n="stp1"></span></a>
+      <a href="#s2" data-step="2"><span class="dot">2</span><span data-i18n="stp2"></span></a>
+      <a href="#s3" data-step="3"><span class="dot">3</span><span data-i18n="stp3"></span></a>
+      <a href="#bilan" data-step="4"><span class="dot">4</span><span data-i18n="stp4"></span></a>
+      <a href="#hyp" data-step="5"><span class="dot">5</span><span data-i18n="stp5"></span></a>
+    </nav>
+    <button class="btn lang" id="lang" type="button" aria-label="Language / Langue"></button>
   </div>
-  <header class="top">
-    <div class="toprow">
-      <h1 data-i18n="title"></h1>
-      <button class="btn lang" id="lang" type="button" aria-label="Language / Langue"></button>
-    </div>
-    <p data-i18n="intro"></p>
+</header>
+<div class="wrap">
+  <div class="top">
+    <p class="lead" data-i18n="intro"></p>
     <p class="dataline" id="dataline"></p>
     <div class="stale" id="stale" role="alert" hidden></div>
-    <a class="jump" href="#hyp" data-i18n="jump"></a>
-  </header>
+  </div>
+  <div class="notice" role="note">
+    <span><span data-i18n="notice"></span> <a href="#avertissements" data-i18n="noticeLink"></a></span>
+  </div>
 
   <div class="layout" id="main-view">
     <aside class="panel" id="hyp" aria-label="Hypothèses">
@@ -188,7 +318,7 @@ select.inl{max-width:420px}
     </aside>
 
     <main>
-      <section class="panel" aria-labelledby="h-sit">
+      <section class="panel" id="s1" aria-labelledby="h-sit">
         <h2 id="h-sit"><span class="n">1</span><span data-i18n="sit"></span></h2>
         <p class="sub" data-i18n="sitSub"></p>
         <div id="prov-box" style="margin-bottom:16px"></div>
@@ -203,13 +333,13 @@ select.inl{max-width:420px}
         </div>
       </section>
 
-      <section class="panel" aria-labelledby="h-obj">
+      <section class="panel" id="s2" aria-labelledby="h-obj">
         <h2 id="h-obj"><span class="n">2</span><span data-i18n="obj"></span></h2>
         <p class="sub" data-i18n="objSub"></p>
         <div class="sub2" id="obj"></div>
       </section>
 
-      <section class="panel" aria-labelledby="h-dates">
+      <section class="panel" id="s3" aria-labelledby="h-dates">
         <h2 id="h-dates"><span class="n">3</span><span data-i18n="dates"></span></h2>
         <p class="sub" data-i18n="datesSub"></p>
         <fieldset>
@@ -232,6 +362,7 @@ select.inl{max-width:420px}
             <h2 id="h-bilan" data-i18n="bilan"></h2>
             <div class="seltabs" id="seltabs" role="group" aria-label="Date de départ à détailler" hidden></div>
             <div class="verdict" id="verdict" role="status"></div>
+            <div class="row-actions" style="margin:12px 0 0"><button class="btn dl" id="xl" type="button" data-i18n="xlBtn"></button><small id="xl-msg" style="color:var(--ink2)" aria-live="polite"></small></div>
             <div class="ledger" id="ledger" style="margin-top:12px"></div>
             <div id="strats" style="margin-top:22px"></div>
           </section>
@@ -291,433 +422,7 @@ select.inl{max-width:420px}
   <footer class="foot" id="foot"></footer>
 </div>
 
-<script id="data" type="application/json">
-{
- "asOf": "2026-11-07",
- "baseYear": 2026,
- "version": "2026.11",
- "federal": {
-  "thr": [
-   0,
-   58523,
-   117045,
-   181440,
-   258482
-  ],
-  "rate": [
-   0.14,
-   0.205,
-   0.26,
-   0.29,
-   0.33
-  ],
-  "bpa": 16452,
-  "cred": 0.14,
-  "age": {
-   "amt": 9208,
-   "thr": 46432,
-   "elim": 107819
-  },
-  "pens": 2000,
-  "clawThr": 95323,
-  "clawRate": 0.15,
-  "qcAbatt": 0.165,
-  "splitMax": 0.5,
-  "cgIncl": 0.5
- },
- "pensions": {
-  "cppMax65": 18092,
-  "oasFull65": 9150,
-  "oas75": 0.1,
-  "cppDefer": 0.007,
-  "oasDefer": 0.006,
-  "tfsaLimit": 7000,
-  "note": {
-   "cpp": "1 507,65 $/mois en 2026 (RPC et RRQ)",
-   "oas": "762,50 $/mois, oct.–déc. 2026 (65 à 74 ans)"
-  }
- },
- "rrif": {
-  "71": 0.0528,
-  "72": 0.054,
-  "73": 0.0553,
-  "74": 0.0567,
-  "75": 0.0582,
-  "76": 0.0598,
-  "77": 0.0617,
-  "78": 0.0636,
-  "79": 0.0658,
-  "80": 0.0682,
-  "81": 0.0708,
-  "82": 0.0738,
-  "83": 0.0771,
-  "84": 0.0808,
-  "85": 0.0851,
-  "86": 0.0899,
-  "87": 0.0955,
-  "88": 0.1021,
-  "89": 0.1099,
-  "90": 0.1192,
-  "91": 0.1306,
-  "92": 0.1449,
-  "93": 0.1634,
-  "94": 0.1879,
-  "95": 0.2
- },
- "provinces": {
-  "QC": {
-   "name": {
-    "fr": "Québec",
-    "en": "Quebec"
-   },
-   "thr": [
-    0,
-    54345,
-    108680,
-    132245
-   ],
-   "rate": [
-    0.14,
-    0.19,
-    0.24,
-    0.2575
-   ],
-   "bpa": 18952,
-   "cred": 0.14,
-   "pens": 0,
-   "idx": "infl",
-   "qc": true
-  },
-  "ON": {
-   "name": {
-    "fr": "Ontario",
-    "en": "Ontario"
-   },
-   "thr": [
-    0,
-    53891,
-    107785,
-    150000,
-    220000
-   ],
-   "rate": [
-    0.0505,
-    0.0915,
-    0.1116,
-    0.1216,
-    0.1316
-   ],
-   "bpa": 12989,
-   "cred": 0.0505,
-   "pens": 1796,
-   "idx": "infl",
-   "age": {
-    "amt": 6342,
-    "thr": 47210,
-    "elim": 89490,
-    "supp": 0
-   },
-   "surtax": {
-    "t1": 5818,
-    "r1": 0.2,
-    "t2": 7446,
-    "r2": 0.36
-   },
-   "ohp": true
-  },
-  "BC": {
-   "name": {
-    "fr": "Colombie-Britannique",
-    "en": "British Columbia"
-   },
-   "thr": [
-    0,
-    50363,
-    100728,
-    115648,
-    140430,
-    190405,
-    265545
-   ],
-   "rate": [
-    0.056,
-    0.077,
-    0.105,
-    0.1229,
-    0.147,
-    0.168,
-    0.205
-   ],
-   "bpa": 13216,
-   "cred": 0.056,
-   "pens": 1000,
-   "idx": "bc",
-   "age": {
-    "amt": 5927,
-    "thr": 44119,
-    "elim": 83632,
-    "supp": 0
-   }
-  },
-  "AB": {
-   "name": {
-    "fr": "Alberta",
-    "en": "Alberta"
-   },
-   "thr": [
-    0,
-    61200,
-    154259,
-    185111,
-    246813,
-    370220
-   ],
-   "rate": [
-    0.08,
-    0.1,
-    0.12,
-    0.13,
-    0.14,
-    0.15
-   ],
-   "bpa": 22769,
-   "cred": 0.08,
-   "pens": 1753,
-   "idx": "infl",
-   "age": {
-    "amt": 6345,
-    "thr": 47234,
-    "elim": 89534,
-    "supp": 0
-   }
-  },
-  "SK": {
-   "name": {
-    "fr": "Saskatchewan",
-    "en": "Saskatchewan"
-   },
-   "thr": [
-    0,
-    54532,
-    155805
-   ],
-   "rate": [
-    0.105,
-    0.125,
-    0.145
-   ],
-   "bpa": 20381,
-   "cred": 0.105,
-   "pens": 1000,
-   "idx": "infl",
-   "age": {
-    "amt": 5901,
-    "thr": 43927,
-    "elim": 83267,
-    "supp": 2569
-   }
-  },
-  "MB": {
-   "name": {
-    "fr": "Manitoba",
-    "en": "Manitoba"
-   },
-   "thr": [
-    0,
-    47000,
-    100000
-   ],
-   "rate": [
-    0.108,
-    0.1275,
-    0.174
-   ],
-   "bpa": 15780,
-   "cred": 0.108,
-   "pens": 1000,
-   "idx": "frozen",
-   "age": {
-    "amt": 3728,
-    "thr": 27749,
-    "elim": 52602,
-    "supp": 0
-   }
-  },
-  "NB": {
-   "name": {
-    "fr": "Nouveau-Brunswick",
-    "en": "New Brunswick"
-   },
-   "thr": [
-    0,
-    52333,
-    104666,
-    193861
-   ],
-   "rate": [
-    0.094,
-    0.14,
-    0.16,
-    0.195
-   ],
-   "bpa": 13664,
-   "cred": 0.094,
-   "pens": 1000,
-   "idx": "infl",
-   "age": {
-    "amt": 6158,
-    "thr": 45844,
-    "elim": 86897,
-    "supp": 0
-   }
-  },
-  "NS": {
-   "name": {
-    "fr": "Nouvelle-Écosse",
-    "en": "Nova Scotia"
-   },
-   "thr": [
-    0,
-    30995,
-    61991,
-    97417,
-    157124
-   ],
-   "rate": [
-    0.0879,
-    0.1495,
-    0.1667,
-    0.175,
-    0.21
-   ],
-   "bpa": 11932,
-   "cred": 0.0879,
-   "pens": 1173,
-   "idx": "infl",
-   "age": {
-    "amt": 5826,
-    "thr": 30828,
-    "elim": 69668,
-    "supp": 0
-   }
-  },
-  "PE": {
-   "name": {
-    "fr": "Île-du-Prince-Édouard",
-    "en": "Prince Edward Island"
-   },
-   "thr": [
-    0,
-    33928,
-    65820,
-    106890,
-    142520,
-    200000
-   ],
-   "rate": [
-    0.095,
-    0.1347,
-    0.166,
-    0.1762,
-    0.19,
-    0.2
-   ],
-   "bpa": 15000,
-   "cred": 0.095,
-   "pens": 1000,
-   "idx": "frozen",
-   "age": {
-    "amt": 6510,
-    "thr": 36600,
-    "elim": 80000,
-    "supp": 0
-   }
-  },
-  "NL": {
-   "name": {
-    "fr": "Terre-Neuve-et-Labrador",
-    "en": "Newfoundland and Labrador"
-   },
-   "thr": [
-    0,
-    44678,
-    89354,
-    159528,
-    223340,
-    285319,
-    570638,
-    1141275
-   ],
-   "rate": [
-    0.087,
-    0.145,
-    0.158,
-    0.178,
-    0.198,
-    0.208,
-    0.213,
-    0.218
-   ],
-   "bpa": 11188,
-   "cred": 0.087,
-   "pens": 1000,
-   "idx": "infl",
-   "age": {
-    "amt": 7142,
-    "thr": 39138,
-    "elim": 86751,
-    "supp": 0
-   }
-  }
- },
- "sources": [
-  {
-   "t": {
-    "fr": "ARC — taux d’imposition des particuliers pour 2026",
-    "en": "CRA — 2026 individual tax rates"
-   },
-   "u": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html"
-  },
-  {
-   "t": {
-    "fr": "KPMG — taux et paliers d’imposition fédéraux et provinciaux 2026 (au 30 juin 2026)",
-    "en": "KPMG — 2026 federal and provincial/territorial tax rates and brackets (as of June 30, 2026)"
-   },
-   "u": "https://assets.kpmg.com/content/dam/kpmgsites/ca/pdf/services/tax/personal-tables/ca-federal-and-provincial-territorial-income-tax-rates-and-brackets-for-2026.pdf.coredownload.inline.pdf"
-  },
-  {
-   "t": {
-    "fr": "TaxTips.ca — crédits d’impôt personnels non remboursables 2026 (révisé le 24 oct. 2026)",
-    "en": "TaxTips.ca — 2026 non-refundable personal tax credits (revised Oct. 24, 2026)"
-   },
-   "u": "https://www.taxtips.ca/nrcredits/tax-credits-2026.htm"
-  },
-  {
-   "t": {
-    "fr": "ARC T4032-ON 2026 — surtaxe et prime-santé de l’Ontario",
-    "en": "CRA T4032-ON 2026 — Ontario surtax and health premium"
-   },
-   "u": "https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032on-jan/t4032on-january-general-information.html"
-  },
-  {
-   "t": {
-    "fr": "Service Canada — montants de la PSV (oct.–déc. 2026) et du RPC (2026)",
-    "en": "Service Canada — OAS amounts (Oct.–Dec. 2026) and CPP amounts (2026)"
-   },
-   "u": "https://www.canada.ca/en/services/benefits/publicpensions.html"
-  },
-  {
-   "t": {
-    "fr": "Retraite Québec — rente du RRQ",
-    "en": "Retraite Québec — QPP pension"
-   },
-   "u": "https://www.retraitequebec.gouv.qc.ca"
-  }
- ]
-}
-</script>
-<script>
-/* Moteur du planificateur de retraite — Canada (10 provinces), 1 ou 2 personnes, jusqu'à 3 dates de départ.
+<script id="data" type="application/json">{"asOf": "2026-11-07", "baseYear": 2026, "version": "2026.11", "federal": {"thr": [0, 58523, 117045, 181440, 258482], "rate": [0.14, 0.205, 0.26, 0.29, 0.33], "bpa": 16452, "cred": 0.14, "age": {"amt": 9208, "thr": 46432, "elim": 107819}, "pens": 2000, "clawThr": 95323, "clawRate": 0.15, "qcAbatt": 0.165, "splitMax": 0.5, "cgIncl": 0.5}, "pensions": {"cppMax65": 18092, "oasFull65": 9150, "oas75": 0.1, "cppDefer": 0.007, "oasDefer": 0.006, "tfsaLimit": 7000, "note": {"cpp": "1 507,65 $/mois en 2026 (RPC et RRQ)", "oas": "762,50 $/mois, oct.\u2013d\u00e9c. 2026 (65 \u00e0 74 ans)"}}, "rrif": {"71": 0.0528, "72": 0.054, "73": 0.0553, "74": 0.0567, "75": 0.0582, "76": 0.0598, "77": 0.0617, "78": 0.0636, "79": 0.0658, "80": 0.0682, "81": 0.0708, "82": 0.0738, "83": 0.0771, "84": 0.0808, "85": 0.0851, "86": 0.0899, "87": 0.0955, "88": 0.1021, "89": 0.1099, "90": 0.1192, "91": 0.1306, "92": 0.1449, "93": 0.1634, "94": 0.1879, "95": 0.2}, "provinces": {"QC": {"name": {"fr": "Qu\u00e9bec", "en": "Quebec"}, "thr": [0, 54345, 108680, 132245], "rate": [0.14, 0.19, 0.24, 0.2575], "bpa": 18952, "cred": 0.14, "pens": 0, "idx": "infl", "qc": true}, "ON": {"name": {"fr": "Ontario", "en": "Ontario"}, "thr": [0, 53891, 107785, 150000, 220000], "rate": [0.0505, 0.0915, 0.1116, 0.1216, 0.1316], "bpa": 12989, "cred": 0.0505, "pens": 1796, "idx": "infl", "age": {"amt": 6342, "thr": 47210, "elim": 89490, "supp": 0}, "surtax": {"t1": 5818, "r1": 0.2, "t2": 7446, "r2": 0.36}, "ohp": true}, "BC": {"name": {"fr": "Colombie-Britannique", "en": "British Columbia"}, "thr": [0, 50363, 100728, 115648, 140430, 190405, 265545], "rate": [0.056, 0.077, 0.105, 0.1229, 0.147, 0.168, 0.205], "bpa": 13216, "cred": 0.056, "pens": 1000, "idx": "bc", "age": {"amt": 5927, "thr": 44119, "elim": 83632, "supp": 0}}, "AB": {"name": {"fr": "Alberta", "en": "Alberta"}, "thr": [0, 61200, 154259, 185111, 246813, 370220], "rate": [0.08, 0.1, 0.12, 0.13, 0.14, 0.15], "bpa": 22769, "cred": 0.08, "pens": 1753, "idx": "infl", "age": {"amt": 6345, "thr": 47234, "elim": 89534, "supp": 0}}, "SK": {"name": {"fr": "Saskatchewan", "en": "Saskatchewan"}, "thr": [0, 54532, 155805], "rate": [0.105, 0.125, 0.145], "bpa": 20381, "cred": 0.105, "pens": 1000, "idx": "infl", "age": {"amt": 5901, "thr": 43927, "elim": 83267, "supp": 2569}}, "MB": {"name": {"fr": "Manitoba", "en": "Manitoba"}, "thr": [0, 47000, 100000], "rate": [0.108, 0.1275, 0.174], "bpa": 15780, "cred": 0.108, "pens": 1000, "idx": "frozen", "age": {"amt": 3728, "thr": 27749, "elim": 52602, "supp": 0}}, "NB": {"name": {"fr": "Nouveau-Brunswick", "en": "New Brunswick"}, "thr": [0, 52333, 104666, 193861], "rate": [0.094, 0.14, 0.16, 0.195], "bpa": 13664, "cred": 0.094, "pens": 1000, "idx": "infl", "age": {"amt": 6158, "thr": 45844, "elim": 86897, "supp": 0}}, "NS": {"name": {"fr": "Nouvelle-\u00c9cosse", "en": "Nova Scotia"}, "thr": [0, 30995, 61991, 97417, 157124], "rate": [0.0879, 0.1495, 0.1667, 0.175, 0.21], "bpa": 11932, "cred": 0.0879, "pens": 1173, "idx": "infl", "age": {"amt": 5826, "thr": 30828, "elim": 69668, "supp": 0}}, "PE": {"name": {"fr": "\u00cele-du-Prince-\u00c9douard", "en": "Prince Edward Island"}, "thr": [0, 33928, 65820, 106890, 142520, 200000], "rate": [0.095, 0.1347, 0.166, 0.1762, 0.19, 0.2], "bpa": 15000, "cred": 0.095, "pens": 1000, "idx": "frozen", "age": {"amt": 6510, "thr": 36600, "elim": 80000, "supp": 0}}, "NL": {"name": {"fr": "Terre-Neuve-et-Labrador", "en": "Newfoundland and Labrador"}, "thr": [0, 44678, 89354, 159528, 223340, 285319, 570638, 1141275], "rate": [0.087, 0.145, 0.158, 0.178, 0.198, 0.208, 0.213, 0.218], "bpa": 11188, "cred": 0.087, "pens": 1000, "idx": "infl", "age": {"amt": 7142, "thr": 39138, "elim": 86751, "supp": 0}}}, "sources": [{"t": {"fr": "ARC \u2014 taux d\u2019imposition des particuliers pour 2026", "en": "CRA \u2014 2026 individual tax rates"}, "u": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html"}, {"t": {"fr": "KPMG \u2014 taux et paliers d\u2019imposition f\u00e9d\u00e9raux et provinciaux 2026 (au 30 juin 2026)", "en": "KPMG \u2014 2026 federal and provincial/territorial tax rates and brackets (as of June 30, 2026)"}, "u": "https://assets.kpmg.com/content/dam/kpmgsites/ca/pdf/services/tax/personal-tables/ca-federal-and-provincial-territorial-income-tax-rates-and-brackets-for-2026.pdf.coredownload.inline.pdf"}, {"t": {"fr": "TaxTips.ca \u2014 cr\u00e9dits d\u2019imp\u00f4t personnels non remboursables 2026 (r\u00e9vis\u00e9 le 24 oct. 2026)", "en": "TaxTips.ca \u2014 2026 non-refundable personal tax credits (revised Oct. 24, 2026)"}, "u": "https://www.taxtips.ca/nrcredits/tax-credits-2026.htm"}, {"t": {"fr": "ARC T4032-ON 2026 \u2014 surtaxe et prime-sant\u00e9 de l\u2019Ontario", "en": "CRA T4032-ON 2026 \u2014 Ontario surtax and health premium"}, "u": "https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032on-jan/t4032on-january-general-information.html"}, {"t": {"fr": "Service Canada \u2014 montants de la PSV (oct.\u2013d\u00e9c. 2026) et du RPC (2026)", "en": "Service Canada \u2014 OAS amounts (Oct.\u2013Dec. 2026) and CPP amounts (2026)"}, "u": "https://www.canada.ca/en/services/benefits/publicpensions.html"}, {"t": {"fr": "Retraite Qu\u00e9bec \u2014 rente du RRQ", "en": "Retraite Qu\u00e9bec \u2014 QPP pension"}, "u": "https://www.retraitequebec.gouv.qc.ca"}]}</script><script>/* Moteur du planificateur de retraite — Canada (10 provinces), 1 ou 2 personnes, jusqu'à 3 dates de départ.
    Les paramètres fiscaux et de retraite viennent de l'objet DATA (voir setData). */
 let DATA = null;
 
@@ -1093,9 +798,84 @@ function sustainable(h, hh, persons, sc) {
 
 if (typeof module !== 'undefined') module.exports = { compareStrategies, setData, defaultAssumptions, simulate, sustainable, taxes, wholeYears, wholeMonths, ohp, idxFactors };
 
-</script>
-<script>
-(function () {
+</script><script>/* Générateur XLSX minimal (aucune bibliothèque externe) : feuilles de valeurs, styles de base, ZIP sans compression. */
+function xlsxBuild(sheets) {
+  var enc = new TextEncoder();
+  var clean = function (s) { return String(s).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, ''); };
+  var esc = function (s) { return clean(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var colName = function (i) { var s = ''; i++; while (i > 0) { var m = (i - 1) % 26; s = String.fromCharCode(65 + m) + s; i = Math.floor((i - 1) / 26); } return s; };
+  var ST = { h: 1, m: 2, p: 3, b: 4, t: 5, w: 6, d: 7 };
+  var names = [], used = {};
+  sheets.forEach(function (sh, i) {
+    var nm = clean(sh.name).replace(/[\[\]:*?\/\\]/g, ' ').trim().slice(0, 31) || ('Feuille' + (i + 1)), base = nm, k = 2;
+    while (used[nm.toLowerCase()]) { nm = base.slice(0, 28) + ' ' + k++; }
+    used[nm.toLowerCase()] = 1; names.push(nm);
+  });
+  var files = [];
+  var add = function (path, text) { files.push({ path: path, data: enc.encode(text) }); };
+  add('[Content_Types].xml', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>' +
+    sheets.map(function (s, i) { return '<Override PartName="/xl/worksheets/sheet' + (i + 1) + '.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>'; }).join('') + '</Types>');
+  add('_rels/.rels', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>');
+  add('xl/workbook.xml', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>' +
+    names.map(function (n, i) { return '<sheet name="' + esc(n) + '" sheetId="' + (i + 1) + '" r:id="rId' + (i + 1) + '"/>'; }).join('') + '</sheets></workbook>');
+  add('xl/_rels/workbook.xml.rels', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
+    sheets.map(function (s, i) { return '<Relationship Id="rId' + (i + 1) + '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet' + (i + 1) + '.xml"/>'; }).join('') +
+    '<Relationship Id="rId' + (sheets.length + 1) + '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>');
+  add('xl/styles.xml', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">' +
+    '<numFmts count="3"><numFmt numFmtId="164" formatCode="0.0%"/><numFmt numFmtId="165" formatCode="#,##0\\ &quot;$&quot;;[Red]\\-#,##0\\ &quot;$&quot;"/><numFmt numFmtId="166" formatCode="yyyy\\-mm\\-dd"/></numFmts>' +
+    '<fonts count="3"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="14"/><name val="Calibri"/></font></fonts>' +
+    '<fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFEEF3FC"/><bgColor indexed="64"/></patternFill></fill></fills>' +
+    '<borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border><border><left/><right/><top/><bottom style="thin"><color rgb="FFCCD6E6"/></bottom><diagonal/></border></borders>' +
+    '<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>' +
+    '<cellXfs count="8"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>' +
+    '<xf numFmtId="0" fontId="1" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf>' +
+    '<xf numFmtId="165" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>' +
+    '<xf numFmtId="164" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>' +
+    '<xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/>' +
+    '<xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0" applyFont="1"/>' +
+    '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1"><alignment vertical="top" wrapText="1"/></xf>' +
+    '<xf numFmtId="166" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>');
+  sheets.forEach(function (sh, si) {
+    var xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">';
+    if (sh.freeze) {
+      var fr = sh.freeze; // { row, col }
+      xml += '<sheetViews><sheetView workbookViewId="0"><pane ' + (fr.col ? 'xSplit="' + fr.col + '" ' : '') + 'ySplit="' + fr.row + '" topLeftCell="' + colName(fr.col || 0) + (fr.row + 1) + '" activePane="' + (fr.col ? 'bottomRight' : 'bottomLeft') + '" state="frozen"/></sheetView></sheetViews>';
+    }
+    if (sh.widths) xml += '<cols>' + sh.widths.map(function (w, i) { return '<col min="' + (i + 1) + '" max="' + (i + 1) + '" width="' + w + '" customWidth="1"/>'; }).join('') + '</cols>';
+    xml += '<sheetData>';
+    sh.rows.forEach(function (row, ri) {
+      var cells = '';
+      row.forEach(function (c, ci) {
+        if (c === null || c === undefined || c === '') return;
+        var v = c, s = 0;
+        if (typeof c === 'object' && !Array.isArray(c)) { v = c.v; s = ST[c.s] || 0; }
+        if (v === null || v === undefined || v === '') return;
+        var ref = colName(ci) + (ri + 1);
+        if (typeof v === 'number') { if (isFinite(v)) cells += '<c r="' + ref + '"' + (s ? ' s="' + s + '"' : '') + '><v>' + v + '</v></c>'; }
+        else cells += '<c r="' + ref + '" t="inlineStr"' + (s ? ' s="' + s + '"' : '') + '><is><t xml:space="preserve">' + esc(v) + '</t></is></c>';
+      });
+      xml += '<row r="' + (ri + 1) + '"' + (row.ht ? ' ht="' + row.ht + '" customHeight="1"' : '') + '>' + cells + '</row>';
+    });
+    add('xl/worksheets/sheet' + (si + 1) + '.xml', xml + '</sheetData></worksheet>');
+  });
+  // ZIP (méthode « stockée »)
+  var table = new Uint32Array(256);
+  for (var n = 0; n < 256; n++) { var c = n; for (var k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; table[n] = c >>> 0; }
+  var crc = function (u8) { var c = 0xFFFFFFFF; for (var i = 0; i < u8.length; i++) c = table[(c ^ u8[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; };
+  var parts = [], central = [], offset = 0;
+  var u16 = function (v) { return [v & 255, (v >>> 8) & 255]; }, u32 = function (v) { return [v & 255, (v >>> 8) & 255, (v >>> 16) & 255, (v >>> 24) & 255]; };
+  files.forEach(function (f) {
+    var name = enc.encode(f.path), cr = crc(f.data), len = f.data.length;
+    var lh = new Uint8Array([0x50, 0x4B, 3, 4].concat(u16(20), u16(0x0800), u16(0), u16(0), u16(0x21), u32(cr), u32(len), u32(len), u16(name.length), u16(0)));
+    parts.push(lh, name, f.data);
+    central.push(new Uint8Array([0x50, 0x4B, 1, 2].concat(u16(20), u16(20), u16(0x0800), u16(0), u16(0), u16(0x21), u32(cr), u32(len), u32(len), u16(name.length), u16(0), u16(0), u16(0), u16(0), u32(0), u32(offset))), name);
+    offset += lh.length + name.length + len;
+  });
+  var cdSize = central.reduce(function (s, p) { return s + p.length; }, 0);
+  var eocd = new Uint8Array([0x50, 0x4B, 5, 6].concat(u16(0), u16(0), u16(files.length), u16(files.length), u32(cdSize), u32(offset), u16(0)));
+  return new Blob(parts.concat(central, [eocd]), { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+}
+</script><script>(function () {
 'use strict';
 var $ = function (s, r) { return (r || document).querySelector(s); };
 var KEY = 'planificateur-retraite-ca-v1';
@@ -1145,6 +925,8 @@ fr: {
   cmpQ: 'Voulez-vous comparer plusieurs dates de départ?',
   rpQ: function (pp) { return 'Début du ' + pp + ' et de la PSV'; },
   bilan: 'Bilan',
+  skip: 'Aller au contenu', stp1: 'Situation', stp2: 'Objectif', stp3: 'Dates', stp4: 'Résultats', stp5: 'Hypothèses',
+  xlBtn: 'Exporter en Excel',
   frise: 'Les phases de la retraite',
   g1: 'Patrimoine à la fin de chaque année',
   cap1: 'Le patrimoine de départ est celui projeté à la date de retraite. Passez le curseur sur le graphique pour lire les montants.',
@@ -1176,6 +958,7 @@ fr: {
   nr0: 'Placements non enregistrés : valeur marchande',
   nrCost: 'Prix de base (coût d’acquisition)',
   nrRet: 'Rendement annuel total',
+  nrTitle: 'Placements non enregistrés (facultatif)',
   nrHint: 'Compte de placement ordinaire (bourse, fonds). Laissez vide si aucun. Prix de base vide : on suppose qu’il égale la valeur. Rendement vide : celui du REER/CELI.',
   cot: 'Cotisation REER par an jusqu’au départ',
   rrq65: function (pp) { return 'Rente ' + pp + ' à 65 ans (facultatif)'; },
@@ -1371,6 +1154,8 @@ en: {
   cmpQ: 'Do you want to compare several retirement dates?',
   rpQ: function (pp) { return 'Start of ' + pp + ' and OAS'; },
   bilan: 'Summary',
+  skip: 'Skip to content', stp1: 'Situation', stp2: 'Target', stp3: 'Dates', stp4: 'Results', stp5: 'Assumptions',
+  xlBtn: 'Export to Excel',
   frise: 'Retirement phases',
   g1: 'Wealth at the end of each year',
   cap1: 'Starting wealth is the amount projected at the retirement date. Hover over the chart to read the amounts.',
@@ -1402,6 +1187,7 @@ en: {
   nr0: 'Non-registered investments: market value',
   nrCost: 'Adjusted cost base',
   nrRet: 'Total annual return',
+  nrTitle: 'Non-registered investments (optional)',
   nrHint: 'Ordinary investment account (stocks, funds). Leave empty if none. Empty cost base: assumed equal to the value. Empty return: the RRSP/TFSA return is used.',
   cot: 'RRSP contribution per year until retirement',
   rrq65: function (pp) { return pp + ' pension at 65 (optional)'; },
@@ -1735,12 +1521,13 @@ function buildPersons() {
       '<div class="two">' +
       fld(id + 'reer0', t('reer0'), numAttr(p.reer0, 'data-p="' + i + '" data-k="reer0"'), '$') +
       fld(id + 'celi0', t('celi0'), numAttr(p.celi0, 'data-p="' + i + '" data-k="celi0"'), '$') + '</div>' +
+      '<details class="nrbox"' + (p.nr0 > 0 ? ' open' : '') + '><summary>' + esc(t('nrTitle')) + '</summary><div class="nrin">' +
       '<div class="two">' +
       fld(id + 'nr0', t('nr0'), numAttr(p.nr0, 'data-p="' + i + '" data-k="nr0"'), '$') +
       fld(id + 'nrCost', t('nrCost'), numAttr(p.nrCost, 'data-p="' + i + '" data-k="nrCost"'), '$') + '</div>' +
       '<div class="two">' +
       fld(id + 'nrRet', t('nrRet'), 'type="number" inputmode="decimal" min="0" max="20" step="0.1" value="' + (p.nrRet != null ? Math.round(p.nrRet * 1000) / 10 : '') + '" placeholder="' + (S.h.rend * 100).toFixed(1) + '" data-p="' + i + '" data-k="nrRet"', '%') + '<div></div></div>' +
-      '<span class="hint" style="font-size:.78rem;color:var(--ink2);margin-top:-6px">' + esc(t('nrHint')) + '</span>' +
+      '<span class="hint" style="font-size:.78rem;color:var(--ink2);margin-top:-6px">' + esc(t('nrHint')) + '</span></div></details>' +
       '<div class="two">' +
       fld(id + 'cot', t('cot'), numAttr(p.cot, 'data-p="' + i + '" data-k="cot"'), t('perYear')) +
       fld(id + 'rrq65', t('rrq65', pp()), numAttr(p.rrq65, 'data-p="' + i + '" data-k="rrq65"'), t('perYear')) + '</div>' +
@@ -1840,7 +1627,7 @@ var specByKey = {};
 function buildFields() {
   var wide = window.matchMedia && window.matchMedia('(min-width:1080px)').matches, html = '';
   groups().forEach(function (g) {
-    html += '<details class="grp"' + (g.open && wide ? ' open' : '') + '><summary>' + esc(g.title) + '</summary><div class="fields">';
+    html += '<details class="grp"' + '' + '><summary>' + esc(g.title) + '</summary><div class="fields">';
     g.fields.forEach(function (f) {
       specByKey[f.k] = f;
       var v = S.h[f.k], unit = f.t === 'pct' ? '%' : (f.unit || '');
@@ -1998,6 +1785,7 @@ function schedule() {
 }
 function run() {
   var my = ++token;
+  updateSteps();
   results = {}; sustain = {};
   $('main').classList.remove('busy');
   var pr = problems(), todo = $('#todo');
@@ -2373,6 +2161,19 @@ function renderDataLine() {
 }
 
 /* ====================== INITIALISATION ====================== */
+function updateSteps() {
+  var ok1 = !!S.h.prov && !!S.hh && (function () { for (var i = 0; i < nP(); i++) if (!S.persons[i].birth) return false; return true; })();
+  var ok2 = S.h.objA > 0;
+  var ok3 = !!S.hh && (function () { for (var j = 0; j < S.cmp; j++) { var sc = scOf(j); for (var k = 0; k < nP(); k++) if (!sc.ret[k].y || !sc.ret[k].m) return false; } return true; })();
+  var ok4 = ok1 && ok2 && ok3 && problems().length === 0;
+  var done = [ok1, ok2, ok3, ok4], cur = done.indexOf(false) + 1;
+  [].forEach.call(document.querySelectorAll('#steps a'), function (el) {
+    var n = +el.getAttribute('data-step');
+    el.classList.toggle('done', n <= 4 && done[n - 1]);
+    el.classList.toggle('cur', n === cur);
+    if (n === cur) el.setAttribute('aria-current', 'step'); else el.removeAttribute('aria-current');
+  });
+}
 function rebuildAll() { applyStatic(); buildProv(); buildHH(); buildSame(); buildPersons(); buildObj(); buildCmp(); buildRp(); buildScbs(); buildFields(); renderDataLine(); renderWarnings(); renderNotes(); }
 function example() {
   var h = S.h;
@@ -2398,15 +2199,153 @@ function loadRemoteData() {
 }
 function route() {
   var info = location.hash === '#avertissements' || location.hash === '#methode';
-  $('#main-view').hidden = info; $('#info').hidden = !info; $('.jump').hidden = info;
+  $('#main-view').hidden = info; $('#info').hidden = !info;
   window.scrollTo(0, 0);
 }
+/* ====================== EXPORTATION EXCEL ====================== */
+var XL = {
+  fr: { sum: 'Résumé', plan: 'Plan', warn: 'Avertissements', file: 'plan-retraite', gen: 'Généré le', prov: 'Province', hh: 'Situation', data: 'Données fiscales et de retraite à jour au',
+    hyp: 'Hypothèses', persons: 'Personnes', obj: 'Revenu net visé', cmp: 'Comparaison des dates de départ', strat: 'Test de stratégies complètes (date sélectionnée)',
+    rend: 'Rendement REER / FERR / CELI', infl: 'Inflation', rendNR: 'Rendement après impôt du surplus hors CELI', nrYield: 'Part imposable du rendement (non enregistré)', txDeces: 'Impôt au décès sur le REER/FERR', ageFin: 'Âge de fin de projection', objIdx: 'Indexation de l’objectif',
+    name: 'Nom', birth: 'Naissance', reer: 'REER / FERR', celi: 'CELI', nr: 'Non enregistré', cost: 'Prix de base', ret: 'Rendement non enreg.', cot: 'Cotisation REER/an', rrq: 'Rente à 65 ans (saisie)', sal: 'Salaire annuel',
+    objA: 'Objectif net annuel (début)', objN: 'Nombre d’années à cet objectif', objB: 'Objectif net annuel (ensuite)', ind: 'Indicateur', plan1: 'Plan — départ',
+    note: 'Valeurs en dollars courants de chaque année, calculées par le site (pas de formules). Estimation à titre indicatif : voir l’onglet Avertissements.', ok: 'Oui', no: 'Non', yes: 'Oui' },
+  en: { sum: 'Summary', plan: 'Plan', warn: 'Disclaimers', file: 'retirement-plan', gen: 'Generated on', prov: 'Province', hh: 'Situation', data: 'Tax and pension data as of',
+    hyp: 'Assumptions', persons: 'People', obj: 'Net income target', cmp: 'Retirement date comparison', strat: 'Full-strategy test (selected date)',
+    rend: 'Return on RRSP / RRIF / TFSA', infl: 'Inflation', rendNR: 'After-tax return on surplus outside the TFSA', nrYield: 'Taxable share of return (non-registered)', txDeces: 'Tax at death on RRSP/RRIF', ageFin: 'Projection end age', objIdx: 'Target indexation',
+    name: 'Name', birth: 'Birth date', reer: 'RRSP / RRIF', celi: 'TFSA', nr: 'Non-registered', cost: 'Cost base', ret: 'Non-reg. return', cot: 'RRSP contribution/yr', rrq: 'Pension at 65 (entered)', sal: 'Annual salary',
+    objA: 'Annual net target (first period)', objN: 'Years at this target', objB: 'Annual net target (afterwards)', ind: 'Indicator', plan1: 'Plan — retiring',
+    note: 'Values in each year’s nominal dollars, computed by the site (no formulas). Estimate for information only: see the Disclaimers tab.', ok: 'Yes', no: 'No', yes: 'Yes' }
+};
+function buildWorkbook() {
+  var X = XL[S.lang], B = I18N[S.lang].tb, K = I18N[S.lang].cmp, n = nP(), i, j;
+  var R = Math.round, cell = function (v, s) { return { v: v, s: s }; };
+  var strip = function (h) { return String(h).replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&nbsp;/g, ' '); };
+  var idx = []; for (j = 0; j < S.cmp; j++) idx.push(j);
+  var res = idx.map(function (k) { return simOf(k); });
+  var sus = idx.map(function (k) { return k in sustain ? sustain[k] : susOf(k); });
+  var sum = function (a) { return a[0] + (n === 2 ? a[1] : 0); };
+  var hhLabel = (I18N[S.lang].hhOpts.filter(function (o) { return o[0] === S.hh; })[0] || ['', ''])[1];
+  var PV = DATA.provinces[S.h.prov];
+  var rows = [];
+  rows.push([cell(I18N[S.lang].title, 't')]);
+  rows.push([X.gen, cell(new Date().toISOString().slice(0, 10), 'b')]);
+  rows.push([X.prov, PV.name[S.lang]]);
+  rows.push([X.hh, hhLabel]);
+  rows.push([X.data, DATA.asOf + ' (' + DATA.version + ')']);
+  rows.push([cell(X.note, 'w')]);
+  rows.push([]);
+  rows.push([cell(X.hyp, 'b')]);
+  [['rend', S.h.rend], ['infl', S.h.infl], ['rendNR', S.h.rendNR], ['nrYield', S.h.nrYield], ['txDeces', S.h.txDeces], ['objIdx', S.h.objIdx]].forEach(function (p) { rows.push([X[p[0]], cell(p[1], 'p')]); });
+  rows.push([X.ageFin, S.h.ageFin]);
+  rows.push([]);
+  rows.push([cell(X.persons, 'b')]);
+  var ph = [X.name, X.birth, X.reer, X.celi, X.nr, X.cost, X.ret, X.cot, X.rrq, X.sal];
+  rows.push(ph.map(function (x) { return cell(x, 'h'); }));
+  for (i = 0; i < n; i++) {
+    var p = S.persons[i], bd = p.birth ? p.birth[0] + '-' + String(p.birth[1]).padStart(2, '0') + '-' + String(p.birth[2]).padStart(2, '0') : '';
+    rows.push([nm(i) || '—', bd, cell(p.reer0 || 0, 'm'), cell(p.celi0 || 0, 'm'), cell(p.nr0 || 0, 'm'), cell(p.nr0 > 0 ? (p.nrCost > 0 ? p.nrCost : p.nr0) : 0, 'm'),
+      p.nr0 > 0 ? cell(p.nrRet != null ? p.nrRet : S.h.rend, 'p') : '', cell(p.cot || 0, 'm'), cell(p.rrq65 || 0, 'm'), cell(p.salary || 0, 'm')]);
+  }
+  rows.push([]);
+  rows.push([cell(X.obj, 'b')]);
+  rows.push([X.objA, cell(S.h.objA, 'm')]);
+  if (S.objDiff && S.h.obj1Ans > 0) { rows.push([X.objN, S.h.obj1Ans]); rows.push([X.objB, cell(S.h.objB, 'm')]); }
+  rows.push([]);
+  rows.push([cell(X.cmp, 'b')]);
+  rows.push([cell(X.ind, 'h')].concat(idx.map(function (k) { return cell(t('departIn', shortDep(k)), 'h'); })));
+  var line = function (label, f, st) { rows.push([label].concat(res.map(function (r, k) { var v = f(r, k); return st ? cell(v, st) : v; }))); };
+  line(K.dates, function (r) { return depTxt(r.sc); });
+  line(n === 2 ? K.ages : K.age, function (r) { return retAgesTxt(r); });
+  line(K.start(pp()), function (r) { return r.sc.rrqAge.map(function (q, p) { return (n === 2 ? nm(p) + ': ' : '') + q + ' · ' + r.sc.psvAge[p]; }).join(' ; '); });
+  line(K.rentes, function (r) { return R(r.sc.rente.reduce(function (a, b) { return a + b; }, 0)); }, 'm');
+  line(K.reer, function (r) { return R(sum(r.acc.reer)); }, 'm');
+  line(K.celi, function (r) { return R(r.acc.celi0); }, 'm');
+  line(K.nr, function (r) { return R(r.acc.nr0); }, 'm');
+  line(K.net, function (r) { return R(r.s.netTotal); }, 'm');
+  line(K.tax, function (r) { return R(r.s.taxTotal); }, 'm');
+  line(K.estate, function (r) { return R(r.s.brut); }, 'm');
+  line(K.estateNet, function (r) { return R(r.s.net); }, 'm');
+  line(K.estateReal(S.h.balYear), function (r) { return R(r.s.reel); }, 'm');
+  line(K.miss, function (r) { return r.s.nbMissed === 0 ? K.none : K.since(r.s.nbMissed, r.s.firstMissed.year); });
+  line(K.sust, function (r, k) { return R(sus[k]); }, 'm');
+  var sel = results[S.sel] || res[S.sel] || res[0];
+  if (sel && sel.strats && sel.strats.length) {
+    var N = I18N[S.lang].strat;
+    rows.push([]); rows.push([cell(X.strat, 'b')]);
+    rows.push([N.h0, N.h1, N.h2, N.h3].map(function (x) { return cell(x, 'h'); }));
+    sel.strats.forEach(function (x) { rows.push([N.names[x.id] + (x.best ? ' ✓' : ''), cell(R(x.net), 'm'), cell(R(x.tax), 'm'), x.missed]); });
+  }
+  var sheets = [{ name: X.sum, rows: rows, widths: [46, 22, 22, 22, 18, 16, 18, 16, 20, 16] }];
+
+  res.forEach(function (r, k) {
+    var hasSal = r.rows.some(function (q) { return q.S[0] + q.S[1] > 0; }), hasNR = r.acc.nr0 > 0;
+    var pn = function (b, q) { return n === 2 ? b + ' (' + nm(q) + ')' : b; };
+    var H = [B.year, n === 1 ? B.age : B.ages].concat(hasSal ? [B.salary, B.contrib] : [], [B.rentes, pp(), B.psv]);
+    for (i = 0; i < n; i++) H.push(pn(B.wReer, i));
+    H = H.concat([B.wPlac, B.tax, B.net, B.obj, B.splitF, B.splitP, B.claw]).concat(hasNR ? [B.gains, B.yld] : []);
+    for (i = 0; i < n; i++) H.push(pn(B.taxF, i));
+    for (i = 0; i < n; i++) H.push(pn(B.taxP, i));
+    H = H.concat([B.eff, B.dep, B.celi]);
+    for (i = 0; i < n; i++) H.push(pn(B.reerEnd, i));
+    H = H.concat([B.nr, B.wealth, B.ctl]);
+    var out = [[cell(X.plan1 + ' ' + depTxt(r.sc), 't')], []];
+    var hr = H.map(function (x) { return cell(x, 'h'); }); hr.ht = 48; out.push(hr);
+    r.rows.forEach(function (q) {
+      var row = [q.year, n === 1 ? String(q.age[0]) : q.age[0] + ' / ' + q.age[1]];
+      if (hasSal) row.push(cell(R(q.S[0] + q.S[1]), 'm'), cell(R(q.Ct[0] + q.Ct[1]), 'm'));
+      row.push(cell(R(q.D[0] + q.D[1]), 'm'), cell(R(q.E[0] + q.E[1]), 'm'), cell(R(q.F[0] + q.F[1]), 'm'));
+      for (i = 0; i < n; i++) row.push(cell(R(q.L[i]), 'm'));
+      row.push(cell(R(q.AF + q.V[0] + q.V[1]), 'm'), cell(R(q.Z), 'm'), cell(R(q.AL), 'm'), cell(R(q.obj), 'm'), cell(R(q.N), 'm'), cell(R(q.O), 'm'), cell(R(q.R[0] + q.R[1]), 'm'));
+      if (hasNR) row.push(cell(R(q.G[0] + q.G[1]), 'm'), cell(R(q.Yd[0] + q.Yd[1]), 'm'));
+      for (i = 0; i < n; i++) row.push(cell(R(q.T[i]), 'm'));
+      for (i = 0; i < n; i++) row.push(cell(R(q.X[i]), 'm'));
+      row.push(cell(q.taux, 'p'), cell(R(q.AI), 'm'), cell(R(q.AJ), 'm'));
+      for (i = 0; i < n; i++) row.push(cell(R(q.AO[i]), 'm'));
+      row.push(cell(R(q.AK + q.NBe[0] + q.NBe[1]), 'm'), cell(R(q.AQ), 'm'), q.ok ? X.yes : X.no);
+      out.push(row);
+    });
+    sheets.push({ name: X.plan + ' ' + (k + 1), rows: out, freeze: { row: 3, col: 2 }, widths: H.map(function (h, c) { return c === 1 ? 10 : (c === 0 ? 8 : 15); }) });
+  });
+
+  var wr = [[cell(I18N[S.lang].warnTitle, 't')], []];
+  t('warnItems').forEach(function (x) { var r1 = [cell(strip(x), 'w')]; wr.push(r1); });
+  wr.push([]); wr.push([cell(I18N[S.lang].sourcesTitle, 'b')]);
+  DATA.sources.forEach(function (s) { wr.push([s.t[S.lang]]); wr.push([s.u]); });
+  sheets.push({ name: X.warn, rows: wr, widths: [120] });
+  return sheets;
+}
+function exportXlsx() {
+  var msg = $('#xl-msg'), X = XL[S.lang];
+  var say = function (m) { if (msg) msg.textContent = m; };
+  var blob;
+  try { blob = xlsxBuild(buildWorkbook()); } catch (e) { say(S.lang === 'fr' ? 'Échec de l’exportation.' : 'Export failed.'); return; }
+  var fname = X.file + '-' + new Date().toISOString().slice(0, 10) + '.xlsx';
+  var fallback = function () {
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = fname;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+  };
+  var tryCap = (window.claude && window.claude.use) ? window.claude.use('downloads') : Promise.resolve(null);
+  tryCap.then(function (d) {
+    if (!d) { fallback(); return; }
+    return d.save({ filename: fname, data: blob }).then(function () { say(S.lang === 'fr' ? 'Fichier enregistré.' : 'File saved.'); }, function (err) {
+      if (err && err.code === 'declined') return;
+      fallback();
+    });
+  }, fallback);
+}
+
 function init() {
   setData(JSON.parse($('#data').textContent));
   load();
   if (!S.objDiff) { S.h.obj1Ans = 0; S.h.objB = S.h.objA; }
   rebuildAll();
   window.addEventListener('hashchange', route); route();
+  $('#xl').addEventListener('click', exportXlsx);
+  $('#steps').addEventListener('click', function (e) {
+    var l = e.target.closest('a'); if (!l || l.getAttribute('data-step') !== '4' || !$('#results').hidden) return;
+    e.preventDefault(); var td = $('#todo'); if (!td.hidden) td.scrollIntoView(); else $('#s3').scrollIntoView();
+  });
   $('#lang').addEventListener('click', function () { S.lang = S.lang === 'fr' ? 'en' : 'fr'; save(); rebuildAll(); run(); });
   $('#prov-box').addEventListener('change', function (e) {
     if (e.target.id !== 'prov') return;
@@ -2459,6 +2398,5 @@ function init() {
 init();
 })();
 
-</script>
-</body>
+</script></body>
 </html>
