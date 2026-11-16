@@ -670,9 +670,10 @@ function simulate(h, hh, persons, sc, opts) {
     const nrA = Math.min(nrB, (p.nrCost != null && p.nrCost >= 0 ? p.nrCost : nr0) + h.nrYield * nr0 * (nrR === 0 ? yrs : (Math.pow(1 + nrR, yrs) - 1) / nrR));
     return { ratio, frac, rrq0, psv0, reer: fv(p.reer0, p.cot / 12), nrR, nrB, nrA };
   });
-  const celiStart = P.reduce((s, p) => s + (p ? p.celi0 : 0), 0) * Math.pow(1 + h.rend, months / 12);
+  const celiStart = P.reduce((s, p) => s + (p ? fv(p.celi0, (p.celiCot || 0) / 12) : 0), 0);
+  const celiContrib = P.reduce((s, p) => s + (p ? (p.celiCot || 0) : 0), 0) * months / 12;
   const celiNew = celiNewPer * n;
-  const room0 = h.celiRoom0 + celiNew * (h.infl === 0 ? (y0 - base0 + 1) : (Math.pow(1 + h.infl, y0 - base0 + 1) - (1 + h.infl)) / h.infl);
+  const room0 = Math.max(0, h.celiRoom0 - celiContrib) + celiNew * (h.infl === 0 ? (y0 - base0 + 1) : (Math.pow(1 + h.infl, y0 - base0 + 1) - (1 + h.infl)) / h.infl);
 
   const rows = [];
   let I = [info[0].reer, info[1] ? info[1].reer : 0];
@@ -961,6 +962,7 @@ fr: {
   nrTitle: 'Placements non enregistrés (facultatif)',
   nrHint: 'Compte de placement ordinaire (bourse, fonds). Laissez vide si aucun. Prix de base vide : on suppose qu’il égale la valeur. Rendement vide : celui du REER/CELI.',
   cot: 'Cotisation REER par an jusqu’au départ',
+  celiCot: 'Cotisation CELI par an jusqu’au départ',
   rrq65: function (pp) { return 'Rente ' + pp + ' à 65 ans (facultatif)'; },
   rrq65Hint: function (pp) { return pp + ' : montant de votre relevé, en dollars d’aujourd’hui. Vide : estimation à partir de la rente maximale et des années de cotisation.'; },
   person: function (i) { return 'Personne ' + (i + 1); },
@@ -1190,6 +1192,7 @@ en: {
   nrTitle: 'Non-registered investments (optional)',
   nrHint: 'Ordinary investment account (stocks, funds). Leave empty if none. Empty cost base: assumed equal to the value. Empty return: the RRSP/TFSA return is used.',
   cot: 'RRSP contribution per year until retirement',
+  celiCot: 'TFSA contribution per year until retirement',
   rrq65: function (pp) { return pp + ' pension at 65 (optional)'; },
   rrq65Hint: function (pp) { return 'From your ' + pp + ' statement, in today’s dollars. Blank: estimated from the maximum pension and your contribution years.'; },
   person: function (i) { return 'Person ' + (i + 1); },
@@ -1350,7 +1353,7 @@ en: {
 };
 
 /* ====================== ÉTAT ====================== */
-function blankPerson() { return { name: '', birth: null, arrival: null, reer0: 0, celi0: 0, nr0: 0, nrCost: 0, nrRet: null, cot: 0, rrq65: 0, salary: 0 }; }
+function blankPerson() { return { name: '', birth: null, arrival: null, reer0: 0, celi0: 0, nr0: 0, nrCost: 0, nrRet: null, cot: 0, celiCot: 0, rrq65: 0, salary: 0 }; }
 function blankSc() { return { ret: [{ y: 0, m: 0 }, { y: 0, m: 0 }], rente: [0, 0], rrqAge: [65, 65], psvAge: [65, 65] }; }
 function fresh(lang) {
   return { lang: lang, hh: '', persons: [blankPerson(), blankPerson()], h: defaultAssumptions(), objDiff: false, rp: 'manual', same: false, cmp: 1, scs: [blankSc(), blankSc(), blankSc()], sel: 0, detail: false };
@@ -1387,7 +1390,7 @@ function de(i) {
 function lab(base, i) { var d = de(i); return d ? base + ' ' + d : base; }
 function act() {
   return S.persons.slice(0, nP()).map(function (p) {
-    return { birth: p.birth, arrival: p.arrival, reer0: p.reer0 || 0, celi0: p.celi0 || 0, nr0: p.nr0 || 0, nrCost: p.nr0 > 0 && p.nrCost > 0 ? p.nrCost : (p.nr0 || 0), nrRet: p.nrRet != null ? p.nrRet : null, cot: p.cot || 0, rrq65: p.rrq65 || null, salary: p.salary || 0 };
+    return { birth: p.birth, arrival: p.arrival, reer0: p.reer0 || 0, celi0: p.celi0 || 0, nr0: p.nr0 || 0, nrCost: p.nr0 > 0 && p.nrCost > 0 ? p.nrCost : (p.nr0 || 0), nrRet: p.nrRet != null ? p.nrRet : null, cot: p.cot || 0, celiCot: p.celiCot || 0, rrq65: p.rrq65 || null, salary: p.salary || 0 };
   });
 }
 function scOf(i) {
@@ -1430,7 +1433,7 @@ function load() {
       var p = d.persons && d.persons[i]; if (!p) return;
       if (typeof p.name === 'string') S.persons[i].name = p.name.slice(0, 40);
       ['birth', 'arrival'].forEach(function (k) { if (isDate(p[k])) S.persons[i][k] = p[k]; });
-      ['reer0', 'celi0', 'nr0', 'nrCost', 'cot', 'rrq65', 'salary'].forEach(function (k) { if (isNum(p[k]) && p[k] >= 0) S.persons[i][k] = p[k]; });
+      ['reer0', 'celi0', 'nr0', 'nrCost', 'cot', 'celiCot', 'rrq65', 'salary'].forEach(function (k) { if (isNum(p[k]) && p[k] >= 0) S.persons[i][k] = p[k]; });
       if (isNum(p.nrRet) && p.nrRet >= 0 && p.nrRet <= 0.2) S.persons[i].nrRet = p.nrRet;
     });
     S.objDiff = d.objDiff === true;
@@ -1530,7 +1533,8 @@ function buildPersons() {
       '<span class="hint" style="font-size:.78rem;color:var(--ink2);margin-top:-6px">' + esc(t('nrHint')) + '</span></div></details>' +
       '<div class="two">' +
       fld(id + 'cot', t('cot'), numAttr(p.cot, 'data-p="' + i + '" data-k="cot"'), t('perYear')) +
-      fld(id + 'rrq65', t('rrq65', pp()), numAttr(p.rrq65, 'data-p="' + i + '" data-k="rrq65"'), t('perYear')) + '</div>' +
+      fld(id + 'celiCot', t('celiCot'), numAttr(p.celiCot, 'data-p="' + i + '" data-k="celiCot"'), t('perYear')) + '</div>' +
+      fld(id + 'rrq65', t('rrq65', pp()), numAttr(p.rrq65, 'data-p="' + i + '" data-k="rrq65"'), t('perYear')) +
       '<span class="hint" style="font-size:.78rem;color:var(--ink2);margin-top:-6px">' + esc(t('rrq65Hint', pp())) + '</span>' +
       (nP() === 2 ? fld(id + 'salary', t('salary'), numAttr(p.salary, 'data-p="' + i + '" data-k="salary"'), t('perYear'), t('salaryHint')) : '') + '</div>';
   }
@@ -2207,13 +2211,13 @@ var XL = {
   fr: { sum: 'Résumé', plan: 'Plan', warn: 'Avertissements', file: 'plan-retraite', gen: 'Généré le', prov: 'Province', hh: 'Situation', data: 'Données fiscales et de retraite à jour au',
     hyp: 'Hypothèses', persons: 'Personnes', obj: 'Revenu net visé', cmp: 'Comparaison des dates de départ', strat: 'Test de stratégies complètes (date sélectionnée)',
     rend: 'Rendement REER / FERR / CELI', infl: 'Inflation', rendNR: 'Rendement après impôt du surplus hors CELI', nrYield: 'Part imposable du rendement (non enregistré)', txDeces: 'Impôt au décès sur le REER/FERR', ageFin: 'Âge de fin de projection', objIdx: 'Indexation de l’objectif',
-    name: 'Nom', birth: 'Naissance', reer: 'REER / FERR', celi: 'CELI', nr: 'Non enregistré', cost: 'Prix de base', ret: 'Rendement non enreg.', cot: 'Cotisation REER/an', rrq: 'Rente à 65 ans (saisie)', sal: 'Salaire annuel',
+    name: 'Nom', birth: 'Naissance', reer: 'REER / FERR', celi: 'CELI', nr: 'Non enregistré', cost: 'Prix de base', ret: 'Rendement non enreg.', cot: 'Cotisation REER/an', celiCot: 'Cotisation CELI/an', rrq: 'Rente à 65 ans (saisie)', sal: 'Salaire annuel',
     objA: 'Objectif net annuel (début)', objN: 'Nombre d’années à cet objectif', objB: 'Objectif net annuel (ensuite)', ind: 'Indicateur', plan1: 'Plan — départ',
     note: 'Valeurs en dollars courants de chaque année, calculées par le site (pas de formules). Estimation à titre indicatif : voir l’onglet Avertissements.', ok: 'Oui', no: 'Non', yes: 'Oui' },
   en: { sum: 'Summary', plan: 'Plan', warn: 'Disclaimers', file: 'retirement-plan', gen: 'Generated on', prov: 'Province', hh: 'Situation', data: 'Tax and pension data as of',
     hyp: 'Assumptions', persons: 'People', obj: 'Net income target', cmp: 'Retirement date comparison', strat: 'Full-strategy test (selected date)',
     rend: 'Return on RRSP / RRIF / TFSA', infl: 'Inflation', rendNR: 'After-tax return on surplus outside the TFSA', nrYield: 'Taxable share of return (non-registered)', txDeces: 'Tax at death on RRSP/RRIF', ageFin: 'Projection end age', objIdx: 'Target indexation',
-    name: 'Name', birth: 'Birth date', reer: 'RRSP / RRIF', celi: 'TFSA', nr: 'Non-registered', cost: 'Cost base', ret: 'Non-reg. return', cot: 'RRSP contribution/yr', rrq: 'Pension at 65 (entered)', sal: 'Annual salary',
+    name: 'Name', birth: 'Birth date', reer: 'RRSP / RRIF', celi: 'TFSA', nr: 'Non-registered', cost: 'Cost base', ret: 'Non-reg. return', cot: 'RRSP contribution/yr', celiCot: 'TFSA contribution/yr', rrq: 'Pension at 65 (entered)', sal: 'Annual salary',
     objA: 'Annual net target (first period)', objN: 'Years at this target', objB: 'Annual net target (afterwards)', ind: 'Indicator', plan1: 'Plan — retiring',
     note: 'Values in each year’s nominal dollars, computed by the site (no formulas). Estimate for information only: see the Disclaimers tab.', ok: 'Yes', no: 'No', yes: 'Yes' }
 };
@@ -2240,12 +2244,12 @@ function buildWorkbook() {
   rows.push([X.ageFin, S.h.ageFin]);
   rows.push([]);
   rows.push([cell(X.persons, 'b')]);
-  var ph = [X.name, X.birth, X.reer, X.celi, X.nr, X.cost, X.ret, X.cot, X.rrq, X.sal];
+  var ph = [X.name, X.birth, X.reer, X.celi, X.nr, X.cost, X.ret, X.cot, X.celiCot, X.rrq, X.sal];
   rows.push(ph.map(function (x) { return cell(x, 'h'); }));
   for (i = 0; i < n; i++) {
     var p = S.persons[i], bd = p.birth ? p.birth[0] + '-' + String(p.birth[1]).padStart(2, '0') + '-' + String(p.birth[2]).padStart(2, '0') : '';
     rows.push([nm(i) || '—', bd, cell(p.reer0 || 0, 'm'), cell(p.celi0 || 0, 'm'), cell(p.nr0 || 0, 'm'), cell(p.nr0 > 0 ? (p.nrCost > 0 ? p.nrCost : p.nr0) : 0, 'm'),
-      p.nr0 > 0 ? cell(p.nrRet != null ? p.nrRet : S.h.rend, 'p') : '', cell(p.cot || 0, 'm'), cell(p.rrq65 || 0, 'm'), cell(p.salary || 0, 'm')]);
+      p.nr0 > 0 ? cell(p.nrRet != null ? p.nrRet : S.h.rend, 'p') : '', cell(p.cot || 0, 'm'), cell(p.celiCot || 0, 'm'), cell(p.rrq65 || 0, 'm'), cell(p.salary || 0, 'm')]);
   }
   rows.push([]);
   rows.push([cell(X.obj, 'b')]);
