@@ -971,6 +971,10 @@ fr: {
   yourData: 'Vos données',
   firstName: 'Prénom (facultatif)',
   birth: 'Date de naissance',
+  sexLbl: 'Sexe (pour l’espérance de vie)',
+  sexOpts: [['', 'Non précisé'], ['M', 'Homme'], ['F', 'Femme']],
+  lifeLbl: 'Espérance de vie (âge)',
+  lifeHint: 'Prérempli avec la moyenne canadienne à la naissance (Statistique Canada, 2024 : 80 ans pour un homme, 84 ans pour une femme, arrondie à la baisse). La projection s’arrête quand la dernière personne atteint son âge. Une personne déjà rendue à la retraite vit en moyenne plus longtemps que ce chiffre : ajoutez quelques années pour être prudent.',
   arrival: 'Résident du Canada depuis le (facultatif)',
   arrivalHint: 'Laissez la date de résidence vide si vous résidez au Canada depuis l’âge de 18 ans.',
   reer0: 'Solde du REER / FERR',
@@ -1209,6 +1213,10 @@ en: {
   yourData: 'Your details',
   firstName: 'First name (optional)',
   birth: 'Date of birth',
+  sexLbl: 'Sex (for life expectancy)',
+  sexOpts: [['', 'Not specified'], ['M', 'Male'], ['F', 'Female']],
+  lifeLbl: 'Life expectancy (age)',
+  lifeHint: 'Pre-filled with the Canadian average at birth (Statistics Canada, 2024: 80 for men, 84 for women, rounded down). The projection stops when the last person reaches this age. Someone who has already reached retirement lives longer than this figure on average: add a few years to be prudent.',
   arrival: 'Resident of Canada since (optional)',
   arrivalHint: 'Leave blank if you have lived in Canada since age 18.',
   reer0: 'RRSP / RRIF balance',
@@ -1383,7 +1391,17 @@ en: {
 };
 
 /* ====================== ÉTAT ====================== */
-function blankPerson() { return { name: '', birth: null, arrival: null, reer0: 0, celi0: 0, nr0: 0, nrCost: 0, nrRet: null, cot: 0, celiCot: 0, rrq65: 0, salary: 0 }; }
+var LIFE_DEF = { M: 80, F: 84, '': 80 };
+function lifeOf(p) { return isNum(p.lifeExp) && p.lifeExp >= 60 && p.lifeExp <= 110 ? p.lifeExp : LIFE_DEF[p.sex || '']; }
+function syncEnd() {
+  var n = nP(), ps = S.persons.slice(0, n), ref = null;
+  if (ps.some(function (p) { return !p.birth; })) return;
+  var yf = function (p) { return p.birth[0] + (p.birth[1] - 1) / 12 + (p.birth[2] - 1) / 365; };
+  var young = Math.max.apply(null, ps.map(yf)), end = 0;
+  ps.forEach(function (p) { end = Math.max(end, lifeOf(p) - (young - yf(p))); });
+  S.h.ageFin = Math.min(110, Math.max(70, Math.ceil(end - 1e-9)));
+}
+function blankPerson() { return { name: '', birth: null, arrival: null, reer0: 0, celi0: 0, nr0: 0, nrCost: 0, nrRet: null, cot: 0, celiCot: 0, rrq65: 0, salary: 0, sex: '', lifeExp: null }; }
 function blankSc() { return { ret: [{ y: 0, m: 0 }, { y: 0, m: 0 }], rente: [0, 0], rrqAge: [65, 65], psvAge: [65, 65] }; }
 function fresh(lang) {
   return { lang: lang, hh: '', persons: [blankPerson(), blankPerson()], h: defaultAssumptions(), objMode: 'target', objDiff: false, rp: 'manual', same: false, cmp: 1, scs: [blankSc(), blankSc(), blankSc()], sel: 0, detail: false };
@@ -1465,6 +1483,8 @@ function load() {
       ['birth', 'arrival'].forEach(function (k) { if (isDate(p[k])) S.persons[i][k] = p[k]; });
       ['reer0', 'celi0', 'nr0', 'nrCost', 'cot', 'celiCot', 'rrq65', 'salary'].forEach(function (k) { if (isNum(p[k]) && p[k] >= 0) S.persons[i][k] = p[k]; });
       if (isNum(p.nrRet) && p.nrRet >= 0 && p.nrRet <= 0.2) S.persons[i].nrRet = p.nrRet;
+      if (p.sex === 'M' || p.sex === 'F') S.persons[i].sex = p.sex;
+      if (isNum(p.lifeExp) && p.lifeExp >= 60 && p.lifeExp <= 110) S.persons[i].lifeExp = p.lifeExp;
     });
     S.objDiff = d.objDiff === true;
     S.objMode = d.objMode === 'max' ? 'max' : 'target';
@@ -1484,6 +1504,7 @@ function load() {
 function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* ignoré */ } }
 
 function problems() {
+  syncEnd();
   var m = [], tag;
   if (!S.h.prov) m.push(t('pNeedProv'));
   if (!S.hh) { m.push(t('pNeedHH')); return m; }
@@ -1552,6 +1573,10 @@ function buildPersons() {
       fld(id + 'birth', t('birth'), 'type="date" data-p="' + i + '" data-k="birth" value="' + dateStr(p.birth) + '"') +
       fld(id + 'arrival', t('arrival'), 'type="date" data-p="' + i + '" data-k="arrival" value="' + dateStr(p.arrival) + '"') + '</div>' +
       '<span class="hint" style="font-size:.78rem;color:var(--ink2);margin-top:-6px">' + esc(t('arrivalHint')) + '</span>' +
+      '<div class="two"><div class="sel"><label for="' + id + 'sex">' + esc(t('sexLbl')) + '</label><select id="' + id + 'sex" data-p="' + i + '" data-k="sex">' +
+      t('sexOpts').map(function (o) { return '<option value="' + o[0] + '"' + ((p.sex || '') === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') + '</select></div>' +
+      fld(id + 'lifeExp', t('lifeLbl'), 'type="number" inputmode="numeric" min="60" max="110" step="1" data-p="' + i + '" data-k="lifeExp" value="' + lifeOf(p) + '"', t('yrs')) + '</div>' +
+      '<span class="hint" style="font-size:.78rem;color:var(--ink2);margin-top:-6px">' + esc(t('lifeHint')) + '</span>' +
       '<div class="two">' +
       fld(id + 'reer0', t('reer0'), numAttr(p.reer0, 'data-p="' + i + '" data-k="reer0"'), '$') +
       fld(id + 'celi0', t('celi0'), numAttr(p.celi0, 'data-p="' + i + '" data-k="celi0"'), '$') + '</div>' +
@@ -1646,7 +1671,6 @@ function groups() {
       { k: 'rendNR', label: t('f_rendNR'), t: 'pct', min: 0, max: 15 },
       { k: 'nrYield', label: t('f_nrYield'), t: 'pct', min: 0, max: 15, hint: t('f_nrYieldHint') },
       { k: 'txDeces', label: t('f_txDeces'), t: 'pct', min: 0, max: 60, hint: t('f_txDecesHint') },
-      { k: 'ageFin', label: t('f_ageFin'), t: 'int', min: 80, max: 100, unit: t('yrs') }
     ] },
     { title: t('g_bal'), open: true, fields: [
       { k: 'balYear', label: t('f_balYear'), t: 'int', min: 2024, max: 2040 },
@@ -1714,6 +1738,12 @@ function onPerson(e) {
     p.name = el.value;
     var hd = $('[data-h="' + i + '"]'); if (hd) hd.textContent = S.hh === 'single' ? t('yourData') : nm(+i);
     buildScbs();
+  } else if (k === 'sex') {
+    p.sex = el.value === 'M' || el.value === 'F' ? el.value : '';
+    var li = $('#p' + i + '-lifeExp'); if (li && !isNum(p.lifeExp)) li.value = lifeOf(p);
+  } else if (k === 'lifeExp') {
+    var lv = parseFloat(el.value);
+    p.lifeExp = isFinite(lv) && lv >= 60 && lv <= 110 ? Math.round(lv) : null;
   } else if (k === 'birth' || k === 'arrival') {
     p[k] = el.value ? strDate(el.value) : null;
     if (k === 'birth') for (var j = 0; j < S.cmp; j++) updateInfo(j);
@@ -1851,6 +1881,7 @@ function schedule() {
 }
 function run() {
   var my = ++token;
+  syncEnd();
   updateSteps();
   results = {}; sustain = {};
   $('main').classList.remove('busy');
@@ -2305,6 +2336,7 @@ function buildWorkbook() {
   rows.push([cell(X.hyp, 'b')]);
   [['rend', S.h.rend], ['infl', S.h.infl], ['rendNR', S.h.rendNR], ['nrYield', S.h.nrYield], ['txDeces', S.h.txDeces], ['objIdx', S.h.objIdx]].forEach(function (p) { rows.push([X[p[0]], cell(p[1], 'p')]); });
   rows.push([X.ageFin, S.h.ageFin]);
+  S.persons.slice(0, nP()).forEach(function (p, i) { rows.push([(S.lang === 'fr' ? 'Espérance de vie' : 'Life expectancy') + ' ' + (S.hh === 'single' ? '' : nm(i)), lifeOf(p)]); });
   rows.push([]);
   rows.push([cell(X.persons, 'b')]);
   var ph = [X.name, X.birth, X.reer, X.celi, X.nr, X.cost, X.ret, X.cot, X.celiCot, X.rrq, X.sal];
