@@ -658,6 +658,39 @@ select#prov option{color:#183334 !important;-webkit-text-fill-color:#183334 !imp
 .rxbox .two{max-width:560px}.rxrow{display:grid;gap:6px;margin-bottom:8px}.rxrow[hidden]{display:none}
 .accts{border:0;padding:0;margin:4px 0 2px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 14px}.accts legend{font-weight:600;padding:0;margin-bottom:8px;font-size:.95rem}.accts .check{margin:0}
 
+
+/* Comparaison des dates : cartes en tête des résultats */
+.cmp-count{font-weight:700;font-size:1.05rem;margin:2px 0 14px}
+.cmp-count.good{color:var(--ok)}.cmp-count.bad{color:var(--warn)}.cmp-count.mid{color:var(--ink)}
+.datecards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:14px;margin-bottom:16px}
+.dcard{display:grid;gap:8px;text-align:left;align-content:start;padding:16px 18px;border:2px solid var(--line2);border-radius:16px;background:#fff;cursor:pointer;font:inherit;color:var(--ink);min-height:44px}
+.dcard.ok{border-color:#2f9f6b;background:linear-gradient(#f3fbf6,#fff 60%)}
+.dcard.ko{border-color:#d49a2b;background:linear-gradient(#fff8e8,#fff 60%)}
+.dcard.on{box-shadow:0 0 0 4px rgba(22,132,116,.18)}
+.dcard:hover{border-color:var(--accent)}
+.dc-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:1.02rem}
+.dc-best{font-size:.72rem;font-weight:700;background:var(--accent);color:#fff;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.dc-stat{font-weight:700;font-size:.92rem;border-radius:10px;padding:7px 10px}
+.dc-stat.ok{background:var(--ok-bg);color:var(--ok)}
+.dc-stat.ko{background:var(--warn-bg);color:var(--warn)}
+.dc-big{font-size:1.7rem;font-weight:800;line-height:1.1}
+.dc-big small{font-size:.78rem;font-weight:500;color:var(--ink2);margin-left:4px}
+.dc-lbl{font-size:.82rem;color:var(--ink2);margin-top:-4px}
+.dc-row{display:flex;justify-content:space-between;gap:10px;font-size:.88rem;border-top:1px solid var(--line);padding-top:7px}
+.dc-sel{font-size:.8rem;color:var(--accent);font-weight:600}
+.cmp-det{margin-top:4px}.cmp-det>summary{cursor:pointer;font-weight:600;color:var(--accent);padding:8px 0}
+
+
+/* Boutons exemple / tout effacer : à droite de la phrase sur la conservation des réponses. */
+.sub-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+.sub-row .sub{margin:0;flex:1 1 280px}
+.sub-row .sub-actions{margin:0 !important;flex:0 0 auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+
+.prov-line{display:flex;align-items:center;gap:12px}
+.prov-line select#prov{flex:0 1 420px;width:auto}
+.prov-line #prov-flag{display:flex;flex:0 0 auto}
+
 /* Bandeau d’accueil plus compact : le contenu du simulateur arrive immédiatement. */
 .top {
   min-height: 142px !important;
@@ -799,17 +832,19 @@ select#prov option{color:#183334 !important;-webkit-text-fill-color:#183334 !imp
     <main>
       <section class="panel" id="s1" aria-labelledby="h-sit">
         <h2 id="h-sit"><span class="n">1</span><span data-i18n="sit"></span></h2>
-        <p class="sub" data-i18n="sitSub"></p>
+        <div class="sub-row">
+          <p class="sub" data-i18n="sitSub"></p>
+          <div class="row-actions sub-actions">
+            <button class="btn primary" id="example" type="button" data-i18n="example"></button>
+            <button class="btn link" id="clear" type="button" data-i18n="clear"></button>
+          </div>
+        </div>
         <div id="prov-box" style="margin-bottom:16px"></div>
         <fieldset>
           <legend data-i18n="whoQ"></legend>
           <div class="opts" id="hh-opts"></div>
         </fieldset>
         <div class="persons" id="persons"></div>
-        <div class="row-actions">
-          <button class="btn primary" id="example" type="button" data-i18n="example"></button>
-          <button class="btn link" id="clear" type="button" data-i18n="clear"></button>
-        </div>
       </section>
 
       <section class="panel" id="s2" aria-labelledby="h-obj">
@@ -837,6 +872,14 @@ select#prov option{color:#183334 !important;-webkit-text-fill-color:#183334 !imp
 
       <div id="results" hidden>
         <div style="display:grid;grid-template-columns:minmax(0,1fr);gap:20px">
+          <section class="panel" aria-labelledby="h-cmp" id="cmp-sec" hidden>
+            <h2 id="h-cmp" data-i18n="cmpTitle"></h2>
+            <p class="sub" data-i18n="cmpSub"></p>
+            <p class="cmp-count" id="cmp-count" role="status"></p>
+            <div class="datecards" id="datecards"></div>
+            <details class="cmp-det" id="cmp-det"><summary id="cmp-det-sum"></summary><div class="tw"><table class="cmp" id="cmp"></table></div></details>
+          </section>
+
           <section class="panel" aria-labelledby="h-bilan" id="bilan">
             <h2 id="h-bilan" data-i18n="bilan"></h2>
             <div class="seltabs" id="seltabs" role="group" aria-label="Date de départ à détailler" hidden></div>
@@ -875,11 +918,6 @@ select#prov option{color:#183334 !important;-webkit-text-fill-color:#183334 !imp
             <div class="tw" id="tw" style="max-height:640px"></div>
           </section>
 
-          <section class="panel" aria-labelledby="h-cmp" id="cmp-sec" hidden>
-            <h2 id="h-cmp" data-i18n="cmpTitle"></h2>
-            <p class="sub" data-i18n="cmpSub"></p>
-            <div class="tw"><table class="cmp" id="cmp"></table></div>
-          </section>
         </div>
       </div>
     </main>
@@ -1434,6 +1472,10 @@ fr: {
   tab: 'Plan année par année',
   detailChk: 'Afficher le détail fiscal',
   tabLegend: 'Lignes bleutées : années à l’objectif initial. Lignes ambrées : objectif non atteint.',
+  cmpCount: function (k, n) { return k === 0 ? 'Aucune des ' + n + ' dates n’atteint la cible.' : k === n ? 'Les ' + n + ' dates atteignent la cible.' : k + ' date' + (k > 1 ? 's' : '') + ' sur ' + n + ' atteignent la cible.'; },
+  cmpOk: 'Cible atteinte', cmpKo: function (n, y) { return 'Cible non atteinte : manque dès ' + y + ' (' + n + ' an' + (n > 1 ? 's' : '') + ')'; },
+  cmpMaxBadge: 'Revenu net maximal calculé', cmpBest: 'Meilleure option', cmpTargetLbl: 'Revenu net visé', cmpMaxLbl: 'Revenu net maximal possible',
+  cmpEstLbl: 'Héritage après impôt', cmpTaxLbl: 'Impôt total', cmpSel: 'Détailler cette date', cmpSelOn: 'Date détaillée ci-dessous', cmpDet: 'Voir le tableau détaillé', cmpCalc: 'Calcul en cours…', cmpPerYr: '/an, indexé',
   cmpTitle: 'Comparaison des dates de départ',
   cmpSub: 'Mêmes hypothèses pour chaque date. Le revenu soutenable est le revenu net maximal (indexé) qui laisse un patrimoine nul ou positif jusqu’à la fin de la projection.',
   met: 'Méthode et limites',
@@ -1678,6 +1720,10 @@ en: {
   tab: 'Year-by-year plan',
   detailChk: 'Show tax details',
   tabLegend: 'Blue-tinted rows: years at the initial target. Amber rows: target not met.',
+  cmpCount: function (k, n) { return k === 0 ? 'None of the ' + n + ' dates meets the target.' : k === n ? 'All ' + n + ' dates meet the target.' : k + ' of ' + n + ' dates meet the target.'; },
+  cmpOk: 'Target met', cmpKo: function (n, y) { return 'Target not met: shortfall from ' + y + ' (' + n + ' year' + (n > 1 ? 's' : '') + ')'; },
+  cmpMaxBadge: 'Maximum net income calculated', cmpBest: 'Best option', cmpTargetLbl: 'Desired net income', cmpMaxLbl: 'Maximum possible net income',
+  cmpEstLbl: 'Estate after tax', cmpTaxLbl: 'Total tax', cmpSel: 'Show details for this date', cmpSelOn: 'Date detailed below', cmpDet: 'Show the detailed table', cmpCalc: 'Calculating…', cmpPerYr: '/yr, indexed',
   cmpTitle: 'Comparing retirement dates',
   cmpSub: 'Same assumptions for each date. Sustainable income is the highest net income (indexed) that leaves zero or positive wealth through the end of the projection.',
   met: 'Method and limits',
@@ -2045,7 +2091,7 @@ function buildProv() {
   var o = '<option value="">' + esc(t('provPh')) + '</option>';
   keys.forEach(function (k) { o += '<option value="' + k + '"' + (S.h.prov === k ? ' selected' : '') + '>' + esc(DATA.provinces[k].name[S.lang]) + '</option>'; });
   var flag = '<span id="prov-flag">' + flagHtml() + '</span>';
-  $('#prov-box').innerHTML = '<div class="fld"><div class="province-label-row"><label for="prov">' + esc(t('provLabel')) + '</label>' + flag + '</div><select id="prov" class="inl">' + o + '</select><span class="hint">' + esc(t('provHint')) + '</span></div>';
+  $('#prov-box').innerHTML = '<div class="fld"><div class="province-label-row"><label for="prov">' + esc(t('provLabel')) + '</label></div><div class="prov-line"><select id="prov" class="inl">' + o + '</select>' + flag + '</div><span class="hint">' + esc(t('provHint')) + '</span></div>';
 }
 function buildSame() {
   var box = $('#same-box');
@@ -2765,6 +2811,32 @@ function renderCompare() {
     }).join('') + '</tr>';
   });
   $('#cmp').innerHTML = th + '</tbody>';
+  $('#cmp-det-sum').textContent = t('cmpDet');
+  var mx = S.objMode === 'max', ready = idx.every(function (j) { return results[j]; });
+  var okOf = function (j) { return results[j] && (mx || results[j].s.nbMissed === 0); };
+  var best = -1;
+  idx.forEach(function (j) {
+    if (!okOf(j)) return;
+    var v = mx ? (j in sustain ? sustain[j] : results[j].s.net) : results[j].s.net;
+    if (best < 0 || v > (mx ? (best in sustain ? sustain[best] : results[best].s.net) : results[best].s.net)) best = j;
+  });
+  var nOk = idx.filter(okOf).length, cards = '';
+  $('#cmp-count').textContent = ready ? (mx ? '' : t('cmpCount', nOk, idx.length)) : t('cmpCalc');
+  $('#cmp-count').className = 'cmp-count ' + (ready && !mx ? (nOk === 0 ? 'bad' : nOk === idx.length ? 'good' : 'mid') : '');
+  idx.forEach(function (j) {
+    var r = results[j], on = j === S.sel, ok = okOf(j);
+    cards += '<button type="button" class="dcard ' + (!r ? '' : ok ? 'ok' : 'ko') + (on ? ' on' : '') + '" data-t="' + j + '" aria-pressed="' + on + '">' +
+      '<span class="dc-top"><b>' + esc(t('departIn', shortDep(j))) + '</b>' + (j === best && idx.length > 1 && nOk > 0 ? '<span class="dc-best">' + esc(t('cmpBest')) + '</span>' : '') + '</span>' +
+      (!r ? '<span class="dc-stat">' + esc(t('cmpCalc')) + '</span>' :
+        '<span class="dc-stat ' + (ok ? 'ok' : 'ko') + '"><span aria-hidden="true">' + (ok ? '✓' : '✕') + '</span> ' + esc(mx ? t('cmpMaxBadge') : ok ? t('cmpOk') : t('cmpKo', r.s.nbMissed, r.s.firstMissed.year)) + '</span>' +
+        '<span class="dc-big">' + money(mx ? (j in sustain ? sustain[j] : hEff(j).objA) : S.h.objA) + '<small>' + esc(t('cmpPerYr')) + '</small></span>' +
+        '<span class="dc-lbl">' + esc(mx ? t('cmpMaxLbl') : t('cmpTargetLbl')) + '</span>' +
+        (!mx && !ok && (j in sustain) ? '<span class="dc-row"><span>' + esc(t('cmpMaxLbl')) + '</span><b>' + money(sustain[j]) + '</b></span>' : '') +
+        '<span class="dc-row"><span>' + esc(t('cmpEstLbl')) + '</span><b>' + money(r.s.net) + '</b></span>' +
+        '<span class="dc-row"><span>' + esc(t('cmpTaxLbl')) + '</span><b>' + money(r.s.taxTotal) + '</b></span>') +
+      '<span class="dc-sel">' + esc(on ? t('cmpSelOn') : t('cmpSel')) + '</span></button>';
+  });
+  $('#datecards').innerHTML = cards;
 }
 
 /* méthode, avertissements, données */
@@ -3011,6 +3083,10 @@ function init() {
   $('#fields').addEventListener('input', onFields);
   $('#fields').addEventListener('change', onFields);
   $('#seltabs').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-t]'); if (!b) return;
+    S.sel = +b.getAttribute('data-t'); save(); run();
+  });
+  $('#datecards').addEventListener('click', function (e) {
     var b = e.target.closest('button[data-t]'); if (!b) return;
     S.sel = +b.getAttribute('data-t'); save(); run();
   });
